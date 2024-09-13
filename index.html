@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Water Quality Checker</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Water Quality Checker</h1>
+
+    <label for="commodity">Pilih Komoditas:</label>
+    <select id="commodity">
+      <option value="tilapia">Ikan Nila</option>
+      <option value="shrimp">Udang</option>
+      <option value="catfish">Ikan Lele</option>
+    </select>
+
+    <div class="input-section">
+      <label for="do">DO (mg/L):</label>
+      <input type="number" id="do" step="0.1">
+    </div>
+
+    <div class="input-section">
+      <label for="temperature">Suhu (°C):</label>
+      <input type="number" id="temperature" step="0.1">
+    </div>
+
+    <div class="input-section">
+      <label for="salinity">Salinitas (ppm):</label>
+      <input type="number" id="salinity" step="0.1">
+    </div>
+
+    <div class="input-section">
+      <label for="ph">pH:</label>
+      <input type="number" id="ph" step="0.1">
+    </div>
+
+    <button onclick="checkQuality()">Cek Kualitas Air</button>
+
+    <div id="result"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
