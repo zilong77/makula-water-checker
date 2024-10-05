@@ -1,38 +1,50 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Water Quality Analysis</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <div class="parameter-input">
-            <h3>Masukkan Parameter Kualitas Air</h3>
-            <label for="commodity">Pilih Komoditas:</label>
-            <select id="commodity">
-                <option value="lele">Ikan Lele</option>
-                <option value="nila">Ikan Nila</option>
-                <option value="koi">Ikan Koi</option>
-            </select><br><br>
+    <h1>Water Quality Analysis</h1>
 
-            <label>Suhu (°C): </label><input type="number" id="suhu" step="0.1"><br>
-            <label>DO (mg/L): </label><input type="number" id="DO" step="0.1"><br>
-            <label>pH: </label><input type="number" id="pH" step="0.1"><br>
-            <label>Kekeruhan (NTU): </label><input type="number" id="kekeruhan"><br>
-            <label>Amoniak (mg/L): </label><input type="number" id="amoniak" step="0.01"><br>
-            <label>Nitrit (mg/L): </label><input type="number" id="nitrit" step="0.01"><br>
-            <label>Nitrat (mg/L): </label><input type="number" id="nitrat" step="0.1"><br><br>
-            
-            <button onclick="analisis()">Analisis</button>
-        </div>
+    <!-- Form untuk input parameter -->
+    <form id="parameterForm">
+        <label for="commodity">Choose Commodity:</label>
+        <select id="commodity">
+            <option value="lele">Lele (Clarias sp.)</option>
+            <option value="nila">Nila (Oreochromis niloticus)</option>
+            <option value="koi">Koi (Cyprinus carpio)</option>
+        </select>
 
-        <div class="hasil-analisis">
-            <h3>Hasil Analisis Kualitas Air</h3>
-            <p id="hasilAnalisis"></p>
-        </div>
-    </div>
+        <label for="suhu">Suhu (°C):</label>
+        <input type="number" id="suhu" step="0.1">
+
+        <label for="DO">DO (mg/L):</label>
+        <input type="number" id="DO" step="0.1">
+
+        <label for="pH">pH:</label>
+        <input type="number" id="pH" step="0.1">
+
+        <label for="kekeruhan">Kekeruhan (NTU):</label>
+        <input type="number" id="kekeruhan" step="0.1">
+
+        <label for="amoniak">Amoniak (mg/L):</label>
+        <input type="number" id="amoniak" step="0.01">
+
+        <label for="nitrit">Nitrit (mg/L):</label>
+        <input type="number" id="nitrit" step="0.01">
+
+        <label for="nitrat">Nitrat (mg/L):</label>
+        <input type="number" id="nitrat" step="1">
+
+        <button type="button" onclick="analisis()">Analisis</button>
+    </form>
+
+    <!-- Bagian hasil analisis -->
+    <h2>Hasil Analisis:</h2>
+    <p id="hasil"></p>
 
     <script src="script.js"></script>
 </body>
