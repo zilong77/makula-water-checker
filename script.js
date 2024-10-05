@@ -160,7 +160,7 @@ function analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
     if (pH < 6.5) {
         hasil += " pH terlalu rendah, tambahkan kapur.";
     } else if (pH > 8) {
-        hasil += " pH terlalu tinggi, tambahkan asam organik.";
+        hasil += " pH terlalu tinggi, tambahkan asam.";
     } else {
         hasil += " pH berada dalam batas yang ideal.";
     }
@@ -194,7 +194,7 @@ function analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
     hasil += " Nitrat idealnya di bawah 50 mg/L.";
     
     if (nitrat > 50) {
-        hasil += " Nitrat terlalu tinggi, lakukan penggantian air rutin atau tambahkan tanaman air.";
+        hasil += " Nitrat terlalu tinggi, lakukan penggantian air rutin atau menanam tanaman air.";
     } else {
         hasil += " Nitrat berada dalam batas yang ideal.";
     }
@@ -203,14 +203,14 @@ function analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
 }
 
 function analisis() {
-    let suhu = parseFloat(document.getElementById("suhu").value);
-    let DO = parseFloat(document.getElementById("DO").value);
-    let pH = parseFloat(document.getElementById("pH").value);
-    let kekeruhan = parseFloat(document.getElementById("kekeruhan").value);
-    let amoniak = parseFloat(document.getElementById("amoniak").value);
-    let nitrit = parseFloat(document.getElementById("nitrit").value);
-    let nitrat = parseFloat(document.getElementById("nitrat").value);
-    let commodity = document.getElementById("commodity").value;
+    const commodity = document.getElementById("commodity").value;
+    const suhu = parseFloat(document.getElementById("suhu").value);
+    const DO = parseFloat(document.getElementById("DO").value);
+    const pH = parseFloat(document.getElementById("pH").value);
+    const kekeruhan = parseFloat(document.getElementById("kekeruhan").value);
+    const amoniak = parseFloat(document.getElementById("amoniak").value);
+    const nitrit = parseFloat(document.getElementById("nitrit").value);
+    const nitrat = parseFloat(document.getElementById("nitrat").value);
 
     let hasil = "";
 
