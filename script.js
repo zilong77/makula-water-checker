@@ -1,226 +1,173 @@
-function analisisLele(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
-    let hasil = "Untuk Ikan Lele (Clarias sp.), parameter suhu ideal berada pada kisaran 25-30°C, dengan batas bawah 20°C dan batas atas 35°C.";
+document.getElementById('input-form').addEventListener('submit', function(e) {
+    e.preventDefault();
     
-    if (suhu < 20) {
-        hasil += " Suhu terlalu rendah, tambahkan pemanas air.";
-    } else if (suhu > 35) {
-        hasil += " Suhu terlalu tinggi, tingkatkan aerasi.";
-    } else {
-        hasil += " Suhu berada dalam batas yang ideal.";
+    const commodity = document.getElementById('commodity').value;
+    const temperature = parseFloat(document.getElementById('temperature').value);
+    const doLevel = parseFloat(document.getElementById('doLevel').value);
+    const phLevel = parseFloat(document.getElementById('phLevel').value);
+    const turbidity = parseFloat(document.getElementById('turbidity').value);
+    const ammonia = parseFloat(document.getElementById('ammonia').value);
+    const nitrite = parseFloat(document.getElementById('nitrite').value);
+    const nitrate = parseFloat(document.getElementById('nitrate').value);
+
+    const results = analyzeWaterQuality(commodity, temperature, doLevel, phLevel, turbidity, ammonia, nitrite, nitrate);
+    
+    displayResults(results);
+});
+
+function analyzeWaterQuality(commodity, temperature, doLevel, phLevel, turbidity, ammonia, nitrite, nitrate) {
+    const results = [];
+
+    // Analisis untuk Ikan Lele
+    if (commodity === 'lele') {
+        results.push(`Untuk Ikan Lele (Clarias sp.):`);
+        results.push(`- Suhu ideal: 25-30°C. Suhu Anda: ${temperature}°C.`);
+        if (temperature < 25) {
+            results.push(`  Suhu terlalu rendah. Tambah pemanas air.`);
+        } else if (temperature > 30) {
+            results.push(`  Suhu terlalu tinggi. Naikkan aerasi.`);
+        }
+
+        results.push(`- DO ideal: 3-5 mg/L. DO Anda: ${doLevel} mg/L.`);
+        if (doLevel < 3) {
+            results.push(`  DO terlalu rendah. Tambah aerasi.`);
+        } else if (doLevel > 5) {
+            results.push(`  DO terlalu tinggi. Cek fotosintesis.`);
+        }
+
+        results.push(`- pH ideal: 6.5-8. pH Anda: ${phLevel}.`);
+        if (phLevel < 6.5) {
+            results.push(`  pH terlalu rendah. Tambah kapur.`);
+        } else if (phLevel > 8) {
+            results.push(`  pH terlalu tinggi. Tambah asam organik.`);
+        }
+
+        results.push(`- Kekeruhan ideal: 30-60 NTU. Kekeruhan Anda: ${turbidity} NTU.`);
+        if (turbidity < 30) {
+            results.push(`  Kekeruhan rendah, tidak perlu tindakan.`);
+        } else if (turbidity > 60) {
+            results.push(`  Kekeruhan terlalu tinggi. Kurangi pakan atau perbaiki sistem filtrasi.`);
+        }
+
+        results.push(`- Amoniak ideal: <0.02 mg/L. Amoniak Anda: ${ammonia} mg/L.`);
+        if (ammonia > 0.02) {
+            results.push(`  Amoniak terlalu tinggi. Ganti sebagian air atau tambahkan zeolit.`);
+        }
+
+        results.push(`- Nitrit ideal: <0.1 mg/L. Nitrit Anda: ${nitrite} mg/L.`);
+        if (nitrite > 0.1) {
+            results.push(`  Nitrit terlalu tinggi. Ganti air atau tambah aerasi.`);
+        }
+
+        results.push(`- Nitrat ideal: <50 mg/L. Nitrat Anda: ${nitrate} mg/L.`);
+        if (nitrate > 50) {
+            results.push(`  Nitrat terlalu tinggi. Tambah tanaman air atau lakukan penggantian air berkala.`);
+        }
     }
 
-    hasil += " Kadar DO (oksigen terlarut) ideal berkisar 3-5 mg/L.";
-    
-    if (DO < 3) {
-        hasil += " DO terlalu rendah, tambahkan aerasi.";
-    } else if (DO > 5) {
-        hasil += " DO terlalu tinggi, cek fotosintesis yang berlebihan.";
-    } else {
-        hasil += " DO berada dalam batas yang ideal.";
+    // Analisis untuk Ikan Nila
+    else if (commodity === 'nila') {
+        results.push(`Untuk Ikan Nila (Oreochromis niloticus):`);
+        results.push(`- Suhu ideal: 26-30°C. Suhu Anda: ${temperature}°C.`);
+        if (temperature < 26) {
+            results.push(`  Suhu terlalu rendah. Gunakan pemanas air.`);
+        } else if (temperature > 30) {
+            results.push(`  Suhu terlalu tinggi. Berikan naungan atau aerasi.`);
+        }
+
+        results.push(`- DO ideal: 5-6 mg/L. DO Anda: ${doLevel} mg/L.`);
+        if (doLevel < 5) {
+            results.push(`  DO terlalu rendah. Tambah aerasi.`);
+        } else if (doLevel > 6) {
+            results.push(`  DO terlalu tinggi. Kurangi tanaman air.`);
+        }
+
+        results.push(`- pH ideal: 6-8. pH Anda: ${phLevel}.`);
+        if (phLevel < 6) {
+            results.push(`  pH terlalu rendah. Tambah kapur.`);
+        } else if (phLevel > 8) {
+            results.push(`  pH terlalu tinggi. Tambah asam organik.`);
+        }
+
+        results.push(`- Kekeruhan ideal: 20-50 NTU. Kekeruhan Anda: ${turbidity} NTU.`);
+        if (turbidity < 20) {
+            results.push(`  Kekeruhan rendah, tidak perlu tindakan.`);
+        } else if (turbidity > 50) {
+            results.push(`  Kekeruhan terlalu tinggi. Kurangi pakan atau bersihkan sistem filtrasi.`);
+        }
+
+        results.push(`- Amoniak ideal: <0.02 mg/L. Amoniak Anda: ${ammonia} mg/L.`);
+        if (ammonia > 0.02) {
+            results.push(`  Amoniak terlalu tinggi. Ganti sebagian air atau gunakan zeolit.`);
+        }
+
+        results.push(`- Nitrit ideal: <0.1 mg/L. Nitrit Anda: ${nitrite} mg/L.`);
+        if (nitrite > 0.1) {
+            results.push(`  Nitrit terlalu tinggi. Tambah aerasi.`);
+        }
+
+        results.push(`- Nitrat ideal: <50 mg/L. Nitrat Anda: ${nitrate} mg/L.`);
+        if (nitrate > 50) {
+            results.push(`  Nitrat terlalu tinggi. Tambah tanaman air atau lakukan penggantian air berkala.`);
+        }
     }
 
-    hasil += " pH ideal untuk ikan lele adalah 6.5-8.";
-    
-    if (pH < 6.5) {
-        hasil += " pH terlalu rendah, tambahkan kapur.";
-    } else if (pH > 8) {
-        hasil += " pH terlalu tinggi, tambahkan asam organik.";
-    } else {
-        hasil += " pH berada dalam batas yang ideal.";
+    // Analisis untuk Ikan Koi
+    else if (commodity === 'koi') {
+        results.push(`Untuk Ikan Koi (Cyprinus carpio):`);
+        results.push(`- Suhu ideal: 20-28°C. Suhu Anda: ${temperature}°C.`);
+        if (temperature < 20) {
+            results.push(`  Suhu terlalu rendah. Tambah pemanas.`);
+        } else if (temperature > 28) {
+            results.push(`  Suhu terlalu tinggi. Tambah aerasi.`);
+        }
+
+        results.push(`- DO ideal: 6-8 mg/L. DO Anda: ${doLevel} mg/L.`);
+        if (doLevel < 6) {
+            results.push(`  DO terlalu rendah. Tambah aerasi.`);
+        } else if (doLevel > 8) {
+            results.push(`  DO terlalu tinggi. Kurangi aktivitas fotosintesis.`);
+        }
+
+        results.push(`- pH ideal: 6.5-8. pH Anda: ${phLevel}.`);
+        if (phLevel < 6.5) {
+            results.push(`  pH terlalu rendah. Tambah kapur.`);
+        } else if (phLevel > 8) {
+            results.push(`  pH terlalu tinggi. Tambah asam organik.`);
+        }
+
+        results.push(`- Kekeruhan ideal: 10-30 NTU. Kekeruhan Anda: ${turbidity} NTU.`);
+        if (turbidity < 10) {
+            results.push(`  Kekeruhan rendah, tidak perlu tindakan.`);
+        } else if (turbidity > 30) {
+            results.push(`  Kekeruhan terlalu tinggi. Kurangi pakan dan bersihkan sistem filtrasi.`);
+        }
+
+        results.push(`- Amoniak ideal: <0.02 mg/L. Amoniak Anda: ${ammonia} mg/L.`);
+        if (ammonia > 0.02) {
+            results.push(`  Amoniak terlalu tinggi. Tambah zeolit atau ganti sebagian air.`);
+        }
+
+        results.push(`- Nitrit ideal: <0.1 mg/L. Nitrit Anda: ${nitrite} mg/L.`);
+        if (nitrite > 0.1) {
+            results.push(`  Nitrit terlalu tinggi. Tambah aerasi atau ganti air.`);
+        }
+
+        results.push(`- Nitrat ideal: <50 mg/L. Nitrat Anda: ${nitrate} mg/L.`);
+        if (nitrate > 50) {
+            results.push(`  Nitrat terlalu tinggi. Ganti air rutin atau menanam tanaman air.`);
+        }
     }
 
-    hasil += " Kekeruhan air yang ideal untuk ikan lele adalah 30-60 NTU.";
-    
-    if (kekeruhan < 30) {
-        hasil += " Kekeruhan terlalu rendah.";
-    } else if (kekeruhan > 60) {
-        hasil += " Kekeruhan terlalu tinggi, kurangi pakan atau perbaiki sistem filtrasi.";
-    } else {
-        hasil += " Kekeruhan berada dalam batas yang ideal.";
-    }
-
-    hasil += " Amoniak ideal harus di bawah 0.02 mg/L.";
-    
-    if (amoniak > 0.02) {
-        hasil += " Amoniak terlalu tinggi, ganti sebagian air atau tambahkan zeolit.";
-    } else {
-        hasil += " Amoniak berada dalam batas yang ideal.";
-    }
-
-    hasil += " Nitrit harus di bawah 0.1 mg/L.";
-    
-    if (nitrit > 0.1) {
-        hasil += " Nitrit terlalu tinggi, tambahkan aerasi atau lakukan penggantian air.";
-    } else {
-        hasil += " Nitrit berada dalam batas yang ideal.";
-    }
-
-    hasil += " Nitrat idealnya di bawah 50 mg/L.";
-    
-    if (nitrat > 50) {
-        hasil += " Nitrat terlalu tinggi, lakukan penggantian air berkala atau tambahkan tanaman air.";
-    } else {
-        hasil += " Nitrat berada dalam batas yang ideal.";
-    }
-
-    return hasil;
+    return results;
 }
 
-function analisisNila(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
-    let hasil = "Untuk Ikan Nila (Oreochromis niloticus), suhu air yang ideal berkisar antara 26-30°C, dengan batas bawah 22°C dan batas atas 32°C.";
-    
-    if (suhu < 22) {
-        hasil += " Suhu terlalu rendah, gunakan pemanas air.";
-    } else if (suhu > 32) {
-        hasil += " Suhu terlalu tinggi, beri naungan atau aerasi.";
-    } else {
-        hasil += " Suhu berada dalam batas yang ideal.";
-    }
-
-    hasil += " DO yang ideal adalah 5-6 mg/L.";
-    
-    if (DO < 5) {
-        hasil += " DO terlalu rendah, tambahkan aerasi.";
-    } else if (DO > 6) {
-        hasil += " DO terlalu tinggi, kurangi tanaman air.";
-    } else {
-        hasil += " DO berada dalam batas yang ideal.";
-    }
-
-    hasil += " pH yang ideal untuk ikan nila adalah 6-8.";
-    
-    if (pH < 6) {
-        hasil += " pH terlalu rendah, tambahkan kapur.";
-    } else if (pH > 8) {
-        hasil += " pH terlalu tinggi, tambahkan asam organik.";
-    } else {
-        hasil += " pH berada dalam batas yang ideal.";
-    }
-
-    hasil += " Kekeruhan air yang ideal berkisar antara 20-50 NTU.";
-    
-    if (kekeruhan < 20) {
-        hasil += " Kekeruhan terlalu rendah.";
-    } else if (kekeruhan > 50) {
-        hasil += " Kekeruhan terlalu tinggi, kurangi pakan atau bersihkan sistem filtrasi.";
-    } else {
-        hasil += " Kekeruhan berada dalam batas yang ideal.";
-    }
-
-    hasil += " Kadar amoniak ideal di bawah 0.02 mg/L.";
-    
-    if (amoniak > 0.02) {
-        hasil += " Amoniak terlalu tinggi, lakukan penggantian air sebagian atau gunakan zeolit.";
-    } else {
-        hasil += " Amoniak berada dalam batas yang ideal.";
-    }
-
-    hasil += " Nitrit harus di bawah 0.1 mg/L.";
-    
-    if (nitrit > 0.1) {
-        hasil += " Nitrit terlalu tinggi, tambahkan aerasi.";
-    } else {
-        hasil += " Nitrit berada dalam batas yang ideal.";
-    }
-
-    hasil += " Nitrat idealnya di bawah 50 mg/L.";
-    
-    if (nitrat > 50) {
-        hasil += " Nitrat terlalu tinggi, lakukan penggantian air berkala atau tambahkan tanaman air.";
-    } else {
-        hasil += " Nitrat berada dalam batas yang ideal.";
-    }
-
-    return hasil;
-}
-
-function analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
-    let hasil = "Untuk Ikan Koi (Cyprinus carpio), suhu ideal berada pada 20-28°C, dengan batas bawah 15°C dan batas atas 30°C.";
-    
-    if (suhu < 15) {
-        hasil += " Suhu terlalu rendah, tambahkan pemanas.";
-    } else if (suhu > 30) {
-        hasil += " Suhu terlalu tinggi, tambahkan aerasi.";
-    } else {
-        hasil += " Suhu berada dalam batas yang ideal.";
-    }
-
-    hasil += " DO yang ideal adalah 6-8 mg/L.";
-    
-    if (DO < 6) {
-        hasil += " DO terlalu rendah, tambahkan aerasi.";
-    } else if (DO > 8) {
-        hasil += " DO terlalu tinggi, kurangi aktivitas fotosintesis.";
-    } else {
-        hasil += " DO berada dalam batas yang ideal.";
-    }
-
-    hasil += " pH ideal adalah 6.5-8.";
-    
-    if (pH < 6.5) {
-        hasil += " pH terlalu rendah, tambahkan kapur.";
-    } else if (pH > 8) {
-        hasil += " pH terlalu tinggi, tambahkan asam.";
-    } else {
-        hasil += " pH berada dalam batas yang ideal.";
-    }
-
-    hasil += " Kekeruhan air yang ideal untuk ikan koi berkisar antara 10-30 NTU.";
-    
-    if (kekeruhan < 10) {
-        hasil += " Kekeruhan terlalu rendah.";
-    } else if (kekeruhan > 30) {
-        hasil += " Kekeruhan terlalu tinggi, kurangi pakan dan bersihkan sistem filtrasi.";
-    } else {
-        hasil += " Kekeruhan berada dalam batas yang ideal.";
-    }
-
-    hasil += " Amoniak harus di bawah 0.02 mg/L.";
-    
-    if (amoniak > 0.02) {
-        hasil += " Amoniak terlalu tinggi, tambahkan zeolit atau ganti sebagian air.";
-    } else {
-        hasil += " Amoniak berada dalam batas yang ideal.";
-    }
-
-    hasil += " Nitrit harus di bawah 0.1 mg/L.";
-    
-    if (nitrit > 0.1) {
-        hasil += " Nitrit terlalu tinggi, tambahkan aerasi atau ganti air.";
-    } else {
-        hasil += " Nitrit berada dalam batas yang ideal.";
-    }
-
-    hasil += " Nitrat idealnya di bawah 50 mg/L.";
-    
-    if (nitrat > 50) {
-        hasil += " Nitrat terlalu tinggi, lakukan penggantian air rutin atau menanam tanaman air.";
-    } else {
-        hasil += " Nitrat berada dalam batas yang ideal.";
-    }
-
-    return hasil;
-}
-
-function analisis() {
-    const commodity = document.getElementById("commodity").value;
-    const suhu = parseFloat(document.getElementById("suhu").value);
-    const DO = parseFloat(document.getElementById("DO").value);
-    const pH = parseFloat(document.getElementById("pH").value);
-    const kekeruhan = parseFloat(document.getElementById("kekeruhan").value);
-    const amoniak = parseFloat(document.getElementById("amoniak").value);
-    const nitrit = parseFloat(document.getElementById("nitrit").value);
-    const nitrat = parseFloat(document.getElementById("nitrat").value);
-
-    let hasil = "";
-
-    if (commodity === "lele") {
-        hasil = analisisLele(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat);
-    } else if (commodity === "nila") {
-        hasil = analisisNila(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat);
-    } else if (commodity === "koi") {
-        hasil = analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat);
-    }
-
-    document.getElementById("hasil").innerText = hasil;
+function displayResults(results) {
+    const resultsList = document.getElementById('results-list');
+    resultsList.innerHTML = '';
+    results.forEach(result => {
+        const li = document.createElement('li');
+        li.textContent = result;
+        resultsList.appendChild(li);
+    });
 }
