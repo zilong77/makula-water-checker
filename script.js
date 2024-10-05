@@ -1,73 +1,100 @@
-function analyzeWaterQuality() {
-    const commodity = document.getElementById("commodity").value;
-    const temperature = parseFloat(document.getElementById("temperature").value);
-    const doLevel = parseFloat(document.getElementById("do").value);
-    const phLevel = parseFloat(document.getElementById("ph").value);
-    const turbidity = parseFloat(document.getElementById("turbidity").value);
-    const ammonia = parseFloat(document.getElementById("ammonia").value);
-    const nitrite = parseFloat(document.getElementById("nitrite").value);
-    const nitrate = parseFloat(document.getElementById("nitrate").value);
-
-    let result = "";
-    let suggestion = "";
-
-    // Kondisi dan rentang parameter ideal untuk setiap komoditas
-    let idealParams = {
-        'lele': {
-            temperature: { ideal: [25, 30], min: 20, max: 35 },
-            doLevel: { ideal: [3, 5], min: 2, max: 7 },
-            phLevel: { ideal: [6.5, 8], min: 5.5, max: 9 },
-            turbidity: { ideal: [30, 60], min: 20, max: 100 },
-            ammonia: { ideal: [0, 0.02], max: 0.05 },
-            nitrite: { ideal: [0, 0.1], max: 0.5 },
-            nitrate: { ideal: [0, 50], max: 100 }
-        },
-        'nila': {
-            temperature: { ideal: [26, 30], min: 22, max: 32 },
-            doLevel: { ideal: [5, 6], min: 3, max: 8 },
-            phLevel: { ideal: [6, 8.1], min: 5.5, max: 9 },
-            turbidity: { ideal: [20, 50], min: 10, max: 80 },
-            ammonia: { ideal: [0, 0.02], max: 0.05 },
-            nitrite: { ideal: [0, 0.1], max: 0.5 },
-            nitrate: { ideal: [0, 50], max: 100 }
-        },
-        'koi': {
-            temperature: { ideal: [20, 28], min: 15, max: 30 },
-            doLevel: { ideal: [6, 8], min: 5, max: 9 },
-            phLevel: { ideal: [6.5, 8], min: 6, max: 9 },
-            turbidity: { ideal: [10, 30], min: 5, max: 50 },
-            ammonia: { ideal: [0, 0.02], max: 0.05 },
-            nitrite: { ideal: [0, 0.1], max: 0.5 },
-            nitrate: { ideal: [0, 50], max: 100 }
-        }
-    };
-
-    let selectedParams = idealParams[commodity];
-
-    // Fungsi untuk cek dan berikan saran berdasarkan parameter
-    function checkParameter(value, parameterName, limits) {
-        if (value < limits.min) {
-            result += `${parameterName} terlalu rendah.\n`;
-            suggestion += `Naikkan ${parameterName} ke nilai ideal ${limits.ideal[0]}-${limits.ideal[1]}.\n`;
-        } else if (value > limits.max) {
-            result += `${parameterName} terlalu tinggi.\n`;
-            suggestion += `Turunkan ${parameterName} ke nilai ideal ${limits.ideal[0]}-${limits.ideal[1]}.\n`;
-        } else if (value < limits.ideal[0] || value > limits.ideal[1]) {
-            result += `${parameterName} mendekati batas tidak ideal.\n`;
-            suggestion += `Pertahankan ${parameterName} dalam rentang ${limits.ideal[0]}-${limits.ideal[1]}.\n`;
-        }
+function analisisLele(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
+    let hasil = "Untuk Ikan Lele (Clarias sp.), parameter suhu ideal berada pada kisaran 25-30°C, dengan batas bawah 20°C dan batas atas 35°C.";
+    
+    if (suhu < 20) {
+        hasil += " Suhu terlalu rendah, tambahkan pemanas air.";
+    } else if (suhu > 35) {
+        hasil += " Suhu terlalu tinggi, tingkatkan aerasi.";
+    } else {
+        hasil += " Suhu berada dalam batas yang ideal.";
     }
 
-    // Analisis setiap parameter
-    checkParameter(temperature, "Suhu", selectedParams.temperature);
-    checkParameter(doLevel, "DO (Oksigen Terlarut)", selectedParams.doLevel);
-    checkParameter(phLevel, "pH", selectedParams.phLevel);
-    checkParameter(turbidity, "Kekeruhan Air", selectedParams.turbidity);
-    checkParameter(ammonia, "Amoniak", selectedParams.ammonia);
-    checkParameter(nitrite, "Nitrit", selectedParams.nitrite);
-    checkParameter(nitrate, "Nitrat", selectedParams.nitrate);
+    hasil += " Kadar DO (oksigen terlarut) ideal berkisar 3-5 mg/L.";
+    
+    if (DO < 3) {
+        hasil += " DO terlalu rendah, tambahkan aerasi.";
+    } else if (DO > 5) {
+        hasil += " DO terlalu tinggi, cek fotosintesis yang berlebihan.";
+    } else {
+        hasil += " DO berada dalam batas yang ideal.";
+    }
 
-    // Tampilkan hasil
-    document.getElementById("result").innerText = result ? result : "Semua parameter sesuai.";
-    document.getElementById("suggestion").innerText = suggestion ? suggestion : "Tidak ada tindakan yang diperlukan.";
+    hasil += " pH ideal untuk ikan lele adalah 6.5-8.";
+    
+    if (pH < 6.5) {
+        hasil += " pH terlalu rendah, tambahkan kapur.";
+    } else if (pH > 8) {
+        hasil += " pH terlalu tinggi, tambahkan asam organik.";
+    } else {
+        hasil += " pH berada dalam batas yang ideal.";
+    }
+
+    hasil += " Kekeruhan air yang ideal untuk ikan lele adalah 30-60 NTU.";
+    
+    if (kekeruhan < 30) {
+        hasil += " Kekeruhan terlalu rendah.";
+    } else if (kekeruhan > 60) {
+        hasil += " Kekeruhan terlalu tinggi, kurangi pakan atau perbaiki sistem filtrasi.";
+    } else {
+        hasil += " Kekeruhan berada dalam batas yang ideal.";
+    }
+
+    hasil += " Amoniak ideal harus di bawah 0.02 mg/L.";
+    
+    if (amoniak > 0.02) {
+        hasil += " Amoniak terlalu tinggi, ganti sebagian air atau tambahkan zeolit.";
+    } else {
+        hasil += " Amoniak berada dalam batas yang ideal.";
+    }
+
+    hasil += " Nitrit harus di bawah 0.1 mg/L.";
+    
+    if (nitrit > 0.1) {
+        hasil += " Nitrit terlalu tinggi, tambahkan aerasi atau lakukan penggantian air.";
+    } else {
+        hasil += " Nitrit berada dalam batas yang ideal.";
+    }
+
+    hasil += " Nitrat idealnya di bawah 50 mg/L.";
+    
+    if (nitrat > 50) {
+        hasil += " Nitrat terlalu tinggi, lakukan penggantian air berkala atau tambahkan tanaman air.";
+    } else {
+        hasil += " Nitrat berada dalam batas yang ideal.";
+    }
+
+    return hasil;
+}
+
+function analisisNila(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
+    // Logika untuk ikan nila berdasarkan parameter idealnya
+    // Anda bisa menambahkan logika serupa seperti analisisLele
+}
+
+function analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat) {
+    // Logika untuk ikan koi berdasarkan parameter idealnya
+    // Anda bisa menambahkan logika serupa seperti analisisLele
+}
+
+function analisis() {
+    let suhu = parseFloat(document.getElementById("suhu").value);
+    let DO = parseFloat(document.getElementById("DO").value);
+    let pH = parseFloat(document.getElementById("pH").value);
+    let kekeruhan = parseFloat(document.getElementById("kekeruhan").value);
+    let amoniak = parseFloat(document.getElementById("amoniak").value);
+    let nitrit = parseFloat(document.getElementById("nitrit").value);
+    let nitrat = parseFloat(document.getElementById("nitrat").value);
+    let commodity = document.getElementById("commodity").value;
+
+    let hasil = "";
+
+    if (commodity === "lele") {
+        hasil = analisisLele(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat);
+    } else if (commodity === "nila") {
+        hasil = analisisNila(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat);
+    } else if (commodity === "koi") {
+        hasil = analisisKoi(suhu, DO, pH, kekeruhan, amoniak, nitrit, nitrat);
+    }
+
+    document.getElementById("hasilAnalisis").innerHTML = hasil;
 }
