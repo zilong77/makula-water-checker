@@ -1,51 +1,48 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Quality Analysis</title>
+    <title>Analisis Kualitas Air</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Water Quality Analysis</h1>
-
-    <!-- Form untuk input parameter -->
-    <form id="parameterForm">
-        <label for="commodity">Choose Commodity:</label>
-        <select id="commodity">
-            <option value="lele">Lele (Clarias sp.)</option>
-            <option value="nila">Nila (Oreochromis niloticus)</option>
-            <option value="koi">Koi (Cyprinus carpio)</option>
-        </select>
-
-        <label for="suhu">Suhu (°C):</label>
-        <input type="number" id="suhu" step="0.1">
-
-        <label for="DO">DO (mg/L):</label>
-        <input type="number" id="DO" step="0.1">
-
-        <label for="pH">pH:</label>
-        <input type="number" id="pH" step="0.1">
-
-        <label for="kekeruhan">Kekeruhan (NTU):</label>
-        <input type="number" id="kekeruhan" step="0.1">
-
-        <label for="amoniak">Amoniak (mg/L):</label>
-        <input type="number" id="amoniak" step="0.01">
-
-        <label for="nitrit">Nitrit (mg/L):</label>
-        <input type="number" id="nitrit" step="0.01">
-
-        <label for="nitrat">Nitrat (mg/L):</label>
-        <input type="number" id="nitrat" step="1">
-
-        <button type="button" onclick="analisis()">Analisis</button>
-    </form>
-
-    <!-- Bagian hasil analisis -->
-    <h2>Hasil Analisis:</h2>
-    <p id="hasil"></p>
-
+    <div class="container">
+        <h1>Analisis Kualitas Air untuk Budidaya Ikan</h1>
+        <div class="input-section">
+            <h2>Input Parameter Kualitas Air</h2>
+            <form id="input-form">
+                <label for="commodity">Pilih Komoditas:</label>
+                <select id="commodity">
+                    <option value="lele">Ikan Lele (Clarias sp.)</option>
+                    <option value="nila">Ikan Nila (Oreochromis niloticus)</option>
+                    <option value="koi">Ikan Koi (Cyprinus carpio)</option>
+                </select>
+                <label for="temperature">Suhu (°C):</label>
+                <input type="number" id="temperature" required>
+                <label for="doLevel">DO (mg/L):</label>
+                <input type="number" id="doLevel" required>
+                <label for="phLevel">pH:</label>
+                <input type="number" id="phLevel" step="0.1" required>
+                <label for="turbidity">Kekeruhan Air (NTU):</label>
+                <input type="number" id="turbidity" required>
+                <label for="ammonia">Amoniak (mg/L):</label>
+                <input type="number" id="ammonia" step="0.01" required>
+                <label for="nitrite">Nitrit (mg/L):</label>
+                <input type="number" id="nitrite" step="0.01" required>
+                <label for="nitrate">Nitrat (mg/L):</label>
+                <input type="number" id="nitrate" required>
+                <button type="submit">Analisis</button>
+            </form>
+        </div>
+        <div class="output-section" id="output-section">
+            <h2>Hasil Analisis</h2>
+            <ul id="results-list"></ul>
+        </div>
+    </div>
+    <footer>
+        <p>by: Akira Firsta</p>
+    </footer>
     <script src="script.js"></script>
 </body>
 </html>
