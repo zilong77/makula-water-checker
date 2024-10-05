@@ -1,46 +1,53 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water Quality Checker</title>
+    <title>Pemeriksa Kualitas Air</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
+        <h1>Pemeriksa Kualitas Air</h1>
+
         <div class="input-section">
-            <h2>Water Quality Parameter Input</h2>
-            <label for="commodity">Select Commodity:</label>
+            <label for="commodity">Pilih Komoditas:</label>
             <select id="commodity">
-                <option value="catfish">Ikan Lele (Clarias sp.)</option>
-                <option value="tilapia">Ikan Nila (Oreochromis niloticus)</option>
+                <option value="lele">Ikan Lele (Clarias sp.)</option>
+                <option value="nila">Ikan Nila (Oreochromis niloticus)</option>
                 <option value="koi">Ikan Koi (Cyprinus carpio)</option>
             </select>
 
             <label for="do">Dissolved Oxygen (mg/L):</label>
-            <input type="number" id="do" step="0.01">
+            <input type="number" id="do" placeholder="Masukkan nilai DO">
 
-            <label for="temperature">Temperature (°C):</label>
-            <input type="number" id="temperature" step="0.1">
-
-            <label for="salinity">Salinity (ppm):</label>
-            <input type="number" id="salinity" step="0.01">
+            <label for="temp">Suhu (°C):</label>
+            <input type="number" id="temp" placeholder="Masukkan nilai Suhu">
 
             <label for="ph">pH:</label>
-            <input type="number" id="ph" step="0.01">
+            <input type="number" id="ph" placeholder="Masukkan nilai pH">
 
-            <button onclick="checkQuality()">Check Quality</button>
+            <label for="turbidity">Kekeruhan (NTU):</label>
+            <input type="number" id="turbidity" placeholder="Masukkan nilai Kekeruhan">
+
+            <label for="ammonia">Amoniak (mg/L):</label>
+            <input type="number" id="ammonia" placeholder="Masukkan nilai Amoniak">
+
+            <label for="nitrite">Nitrit (mg/L):</label>
+            <input type="number" id="nitrite" placeholder="Masukkan nilai Nitrit">
+
+            <label for="nitrate">Nitrat (mg/L):</label>
+            <input type="number" id="nitrate" placeholder="Masukkan nilai Nitrat">
+
+            <button onclick="periksaKualitasAir()">Periksa Kualitas Air</button>
         </div>
 
-        <div class="output-section">
-            <h2>Analysis Result</h2>
-            <div id="result">Please enter the parameters and click "Check Quality" to see the result.</div>
+        <div class="result-section" id="result">
+            <!-- Hasil akan muncul di sini -->
         </div>
+        
+        <footer>by: Akira Firsta</footer>
     </div>
-
-    <footer>
-        <p>by: Akira Firsta</p>
-    </footer>
 
     <script src="script.js"></script>
 </body>
