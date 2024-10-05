@@ -3,69 +3,34 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Analisis Kualitas Air</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Water Quality Analysis</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <!-- Form Pemilihan Komoditas dan Input Parameter -->
-        <div class="form-container">
-            <h2>Masukkan Parameter Kualitas Air</h2>
-            <form id="waterQualityForm">
-                <div class="form-section">
-                    <label for="commodity">Pilih Komoditas:</label>
-                    <select id="commodity" required>
-                        <option value="lele">Ikan Lele (Clarias sp.)</option>
-                        <option value="nila">Ikan Nila (Oreochromis niloticus)</option>
-                        <option value="koi">Ikan Koi (Cyprinus carpio)</option>
-                    </select>
-                </div>
+        <div class="parameter-input">
+            <h3>Masukkan Parameter Kualitas Air</h3>
+            <label for="commodity">Pilih Komoditas:</label>
+            <select id="commodity">
+                <option value="lele">Ikan Lele</option>
+                <option value="nila">Ikan Nila</option>
+                <option value="koi">Ikan Koi</option>
+            </select><br><br>
 
-                <div class="form-section">
-                    <label for="temperature">Suhu (°C):</label>
-                    <input type="number" id="temperature" step="0.1" required>
-                </div>
-
-                <div class="form-section">
-                    <label for="do">DO (Oksigen Terlarut) (mg/L):</label>
-                    <input type="number" id="do" step="0.1" required>
-                </div>
-
-                <div class="form-section">
-                    <label for="ph">pH:</label>
-                    <input type="number" id="ph" step="0.1" required>
-                </div>
-
-                <div class="form-section">
-                    <label for="turbidity">Kekeruhan Air (NTU):</label>
-                    <input type="number" id="turbidity" step="0.1" required>
-                </div>
-
-                <div class="form-section">
-                    <label for="ammonia">Amoniak (mg/L):</label>
-                    <input type="number" id="ammonia" step="0.01" required>
-                </div>
-
-                <div class="form-section">
-                    <label for="nitrite">Nitrit (mg/L):</label>
-                    <input type="number" id="nitrite" step="0.01" required>
-                </div>
-
-                <div class="form-section">
-                    <label for="nitrate">Nitrat (mg/L):</label>
-                    <input type="number" id="nitrate" step="0.01" required>
-                </div>
-
-                <button type="button" onclick="analyzeWaterQuality()">Analisis</button>
-            </form>
+            <label>Suhu (°C): </label><input type="number" id="suhu" step="0.1"><br>
+            <label>DO (mg/L): </label><input type="number" id="DO" step="0.1"><br>
+            <label>pH: </label><input type="number" id="pH" step="0.1"><br>
+            <label>Kekeruhan (NTU): </label><input type="number" id="kekeruhan"><br>
+            <label>Amoniak (mg/L): </label><input type="number" id="amoniak" step="0.01"><br>
+            <label>Nitrit (mg/L): </label><input type="number" id="nitrit" step="0.01"><br>
+            <label>Nitrat (mg/L): </label><input type="number" id="nitrat" step="0.1"><br><br>
+            
+            <button onclick="analisis()">Analisis</button>
         </div>
 
-        <!-- Hasil Analisis dan Saran Tindakan -->
-        <div class="result-container">
-            <h2>Hasil Analisis</h2>
-            <p id="result"></p>
-            <h2>Saran Tindakan</h2>
-            <p id="suggestion"></p>
+        <div class="hasil-analisis">
+            <h3>Hasil Analisis Kualitas Air</h3>
+            <p id="hasilAnalisis"></p>
         </div>
     </div>
 
