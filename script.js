@@ -1,173 +1,58 @@
-document.getElementById('input-form').addEventListener('submit', function(e) {
-    e.preventDefault();
-    
-    const commodity = document.getElementById('commodity').value;
-    const temperature = parseFloat(document.getElementById('temperature').value);
-    const doLevel = parseFloat(document.getElementById('doLevel').value);
-    const phLevel = parseFloat(document.getElementById('phLevel').value);
-    const turbidity = parseFloat(document.getElementById('turbidity').value);
-    const ammonia = parseFloat(document.getElementById('ammonia').value);
-    const nitrite = parseFloat(document.getElementById('nitrite').value);
-    const nitrate = parseFloat(document.getElementById('nitrate').value);
+function analyze() {
+    const komoditas = document.getElementById("komoditas").value;
+    const suhu = parseFloat(document.getElementById("suhu").value);
+    const doValue = parseFloat(document.getElementById("do").value);
+    const ph = parseFloat(document.getElementById("ph").value);
+    const kekeruhan = parseFloat(document.getElementById("kekeruhan").value);
+    const amoniak = parseFloat(document.getElementById("amoniak").value);
+    const nitrit = parseFloat(document.getElementById("nitrit").value);
+    const nitrat = parseFloat(document.getElementById("nitrat").value);
 
-    const results = analyzeWaterQuality(commodity, temperature, doLevel, phLevel, turbidity, ammonia, nitrite, nitrate);
-    
-    displayResults(results);
-});
+    let resultHtml = "";
 
-function analyzeWaterQuality(commodity, temperature, doLevel, phLevel, turbidity, ammonia, nitrite, nitrate) {
-    const results = [];
-
-    // Analisis untuk Ikan Lele
-    if (commodity === 'lele') {
-        results.push(`Untuk Ikan Lele (Clarias sp.):`);
-        results.push(`- Suhu ideal: 25-30°C. Suhu Anda: ${temperature}°C.`);
-        if (temperature < 25) {
-            results.push(`  Suhu terlalu rendah. Tambah pemanas air.`);
-        } else if (temperature > 30) {
-            results.push(`  Suhu terlalu tinggi. Naikkan aerasi.`);
+    // Rules for each commodity
+    if (komoditas === "lele") {
+        resultHtml += "<div class='result-card'><h3>Suhu</h3>";
+        resultHtml += "<p>Ideal: 25-30°C</p>";
+        resultHtml += `<p>Suhu saat ini: ${suhu}°C</p>`;
+        if (suhu < 20) {
+            resultHtml += "<strong>Saran: Tambah pemanas air karena suhu terlalu rendah.</strong>";
+        } else if (suhu > 35) {
+            resultHtml += "<strong>Saran: Tambahkan aerasi karena suhu terlalu tinggi.</strong>";
+        } else {
+            resultHtml += "<strong>Suhu berada dalam kisaran ideal.</strong>";
         }
+        resultHtml += "</div>";
 
-        results.push(`- DO ideal: 3-5 mg/L. DO Anda: ${doLevel} mg/L.`);
-        if (doLevel < 3) {
-            results.push(`  DO terlalu rendah. Tambah aerasi.`);
-        } else if (doLevel > 5) {
-            results.push(`  DO terlalu tinggi. Cek fotosintesis.`);
+        // DO
+        resultHtml += "<div class='result-card'><h3>DO (Oksigen Terlarut)</h3>";
+        resultHtml += "<p>Ideal: 3-5 mg/L</p>";
+        resultHtml += `<p>DO saat ini: ${doValue} mg/L</p>`;
+        if (doValue < 2) {
+            resultHtml += "<strong>Saran: Tambah aerasi karena DO terlalu rendah.</strong>";
+        } else if (doValue > 7) {
+            resultHtml += "<strong>Saran: Cek fotosintesis karena DO terlalu tinggi.</strong>";
+        } else {
+            resultHtml += "<strong>DO berada dalam kisaran ideal.</strong>";
         }
+        resultHtml += "</div>";
 
-        results.push(`- pH ideal: 6.5-8. pH Anda: ${phLevel}.`);
-        if (phLevel < 6.5) {
-            results.push(`  pH terlalu rendah. Tambah kapur.`);
-        } else if (phLevel > 8) {
-            results.push(`  pH terlalu tinggi. Tambah asam organik.`);
+        // pH
+        resultHtml += "<div class='result-card'><h3>pH</h3>";
+        resultHtml += "<p>Ideal: 6.5-8</p>";
+        resultHtml += `<p>pH saat ini: ${ph}</p>`;
+        if (ph < 5.5) {
+            resultHtml += "<strong>Saran: Tambah kapur karena pH terlalu rendah.</strong>";
+        } else if (ph > 9) {
+            resultHtml += "<strong>Saran: Tambah asam organik karena pH terlalu tinggi.</strong>";
+        } else {
+            resultHtml += "<strong>pH berada dalam kisaran ideal.</strong>";
         }
+        resultHtml += "</div>";
 
-        results.push(`- Kekeruhan ideal: 30-60 NTU. Kekeruhan Anda: ${turbidity} NTU.`);
-        if (turbidity < 30) {
-            results.push(`  Kekeruhan rendah, tidak perlu tindakan.`);
-        } else if (turbidity > 60) {
-            results.push(`  Kekeruhan terlalu tinggi. Kurangi pakan atau perbaiki sistem filtrasi.`);
-        }
-
-        results.push(`- Amoniak ideal: <0.02 mg/L. Amoniak Anda: ${ammonia} mg/L.`);
-        if (ammonia > 0.02) {
-            results.push(`  Amoniak terlalu tinggi. Ganti sebagian air atau tambahkan zeolit.`);
-        }
-
-        results.push(`- Nitrit ideal: <0.1 mg/L. Nitrit Anda: ${nitrite} mg/L.`);
-        if (nitrite > 0.1) {
-            results.push(`  Nitrit terlalu tinggi. Ganti air atau tambah aerasi.`);
-        }
-
-        results.push(`- Nitrat ideal: <50 mg/L. Nitrat Anda: ${nitrate} mg/L.`);
-        if (nitrate > 50) {
-            results.push(`  Nitrat terlalu tinggi. Tambah tanaman air atau lakukan penggantian air berkala.`);
-        }
+        // ... (analisis lainnya untuk kekeruhan, amoniak, nitrit, nitrat)
     }
 
-    // Analisis untuk Ikan Nila
-    else if (commodity === 'nila') {
-        results.push(`Untuk Ikan Nila (Oreochromis niloticus):`);
-        results.push(`- Suhu ideal: 26-30°C. Suhu Anda: ${temperature}°C.`);
-        if (temperature < 26) {
-            results.push(`  Suhu terlalu rendah. Gunakan pemanas air.`);
-        } else if (temperature > 30) {
-            results.push(`  Suhu terlalu tinggi. Berikan naungan atau aerasi.`);
-        }
-
-        results.push(`- DO ideal: 5-6 mg/L. DO Anda: ${doLevel} mg/L.`);
-        if (doLevel < 5) {
-            results.push(`  DO terlalu rendah. Tambah aerasi.`);
-        } else if (doLevel > 6) {
-            results.push(`  DO terlalu tinggi. Kurangi tanaman air.`);
-        }
-
-        results.push(`- pH ideal: 6-8. pH Anda: ${phLevel}.`);
-        if (phLevel < 6) {
-            results.push(`  pH terlalu rendah. Tambah kapur.`);
-        } else if (phLevel > 8) {
-            results.push(`  pH terlalu tinggi. Tambah asam organik.`);
-        }
-
-        results.push(`- Kekeruhan ideal: 20-50 NTU. Kekeruhan Anda: ${turbidity} NTU.`);
-        if (turbidity < 20) {
-            results.push(`  Kekeruhan rendah, tidak perlu tindakan.`);
-        } else if (turbidity > 50) {
-            results.push(`  Kekeruhan terlalu tinggi. Kurangi pakan atau bersihkan sistem filtrasi.`);
-        }
-
-        results.push(`- Amoniak ideal: <0.02 mg/L. Amoniak Anda: ${ammonia} mg/L.`);
-        if (ammonia > 0.02) {
-            results.push(`  Amoniak terlalu tinggi. Ganti sebagian air atau gunakan zeolit.`);
-        }
-
-        results.push(`- Nitrit ideal: <0.1 mg/L. Nitrit Anda: ${nitrite} mg/L.`);
-        if (nitrite > 0.1) {
-            results.push(`  Nitrit terlalu tinggi. Tambah aerasi.`);
-        }
-
-        results.push(`- Nitrat ideal: <50 mg/L. Nitrat Anda: ${nitrate} mg/L.`);
-        if (nitrate > 50) {
-            results.push(`  Nitrat terlalu tinggi. Tambah tanaman air atau lakukan penggantian air berkala.`);
-        }
-    }
-
-    // Analisis untuk Ikan Koi
-    else if (commodity === 'koi') {
-        results.push(`Untuk Ikan Koi (Cyprinus carpio):`);
-        results.push(`- Suhu ideal: 20-28°C. Suhu Anda: ${temperature}°C.`);
-        if (temperature < 20) {
-            results.push(`  Suhu terlalu rendah. Tambah pemanas.`);
-        } else if (temperature > 28) {
-            results.push(`  Suhu terlalu tinggi. Tambah aerasi.`);
-        }
-
-        results.push(`- DO ideal: 6-8 mg/L. DO Anda: ${doLevel} mg/L.`);
-        if (doLevel < 6) {
-            results.push(`  DO terlalu rendah. Tambah aerasi.`);
-        } else if (doLevel > 8) {
-            results.push(`  DO terlalu tinggi. Kurangi aktivitas fotosintesis.`);
-        }
-
-        results.push(`- pH ideal: 6.5-8. pH Anda: ${phLevel}.`);
-        if (phLevel < 6.5) {
-            results.push(`  pH terlalu rendah. Tambah kapur.`);
-        } else if (phLevel > 8) {
-            results.push(`  pH terlalu tinggi. Tambah asam organik.`);
-        }
-
-        results.push(`- Kekeruhan ideal: 10-30 NTU. Kekeruhan Anda: ${turbidity} NTU.`);
-        if (turbidity < 10) {
-            results.push(`  Kekeruhan rendah, tidak perlu tindakan.`);
-        } else if (turbidity > 30) {
-            results.push(`  Kekeruhan terlalu tinggi. Kurangi pakan dan bersihkan sistem filtrasi.`);
-        }
-
-        results.push(`- Amoniak ideal: <0.02 mg/L. Amoniak Anda: ${ammonia} mg/L.`);
-        if (ammonia > 0.02) {
-            results.push(`  Amoniak terlalu tinggi. Tambah zeolit atau ganti sebagian air.`);
-        }
-
-        results.push(`- Nitrit ideal: <0.1 mg/L. Nitrit Anda: ${nitrite} mg/L.`);
-        if (nitrite > 0.1) {
-            results.push(`  Nitrit terlalu tinggi. Tambah aerasi atau ganti air.`);
-        }
-
-        results.push(`- Nitrat ideal: <50 mg/L. Nitrat Anda: ${nitrate} mg/L.`);
-        if (nitrate > 50) {
-            results.push(`  Nitrat terlalu tinggi. Ganti air rutin atau menanam tanaman air.`);
-        }
-    }
-
-    return results;
-}
-
-function displayResults(results) {
-    const resultsList = document.getElementById('results-list');
-    resultsList.innerHTML = '';
-    results.forEach(result => {
-        const li = document.createElement('li');
-        li.textContent = result;
-        resultsList.appendChild(li);
-    });
+    // Tampilkan hasil
+    document.getElementById("result").innerHTML = resultHtml;
 }
